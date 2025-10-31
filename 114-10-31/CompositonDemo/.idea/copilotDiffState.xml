@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/Person.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/Person.java" />
+              <option name="originalContent" value="public class Person {&#10;&#10;&#10;    private String name;&#10;    private String id;&#10;&#10;    public Person(String name, String id) {&#10;        this.name = name;&#10;        this.id = id;&#10;&#10;    }&#10;&#10;    public String getName() {&#10;        return name;&#10;    }&#10;&#10;    public String getId() {&#10;        return id;&#10;    }&#10;&#10;    public String toString() {&#10;        return String.format();&#10;&#10;    }&#10;&#10;}" />
+              <option name="updatedContent" value="public class Person {&#10;&#10;&#10;    private String name;&#10;    private String id;&#10;&#10;    public Person(String name, String id) {&#10;        this.name = name;&#10;        this.id = id;&#10;&#10;    }&#10;&#10;    public String getName() {&#10;        return name;&#10;    }&#10;&#10;    public String getId() {&#10;        return id;&#10;    }&#10;&#10;    public String toString() {&#10;        return String.format(&quot;%s(%s)&quot;, name, id);&#10;&#10;    }&#10;&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
