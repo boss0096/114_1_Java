@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/SwordsMan.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/SwordsMan.java" />
+              <option name="originalContent" value="public  class SwordsMan extends Role {&#10;    // 建構子：初始化劍士的名稱、生命值和攻擊力&#10;&#10;    //super繼承Role的建構子&#10;    public SwordsMan(String name, int health, int attackPower) {&#10;        super(name, health, attackPower);&#10;    }&#10;&#10;    // 攻擊對手，參考父類別&#10;    @Override&#10;    public void attack(Role opponent) {&#10;        opponent.setHealth(opponent.getHealth() - this.getAttackPower());&#10;        System.out.println(this.getName() + &quot; 物理攻擊 &quot; + opponent.getName() + &quot; 造成 &quot; +&#10;                this.getAttackPower() + &quot; 點傷害。&quot; + opponent);&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="public  class SwordsMan extends Role {&#10;    // 建構子：初始化劍士的名稱、生命值和攻擊力&#10;&#10;    //super繼承Role的建構子&#10;    public SwordsMan(String name, int health, int attackPower) {&#10;        super(name, health, attackPower);&#10;    }&#10;&#10;    // 攻擊對手，參考父類別&#10;    @Override&#10;    public void attack(Role opponent) {&#10;        opponent.setHealth(opponent.getHealth() - this.getAttackPower());&#10;        System.out.println(this.getName() + &quot; 物理攻擊 &quot; + opponent.getName() + &quot; 造成 &quot; +&#10;                this.getAttackPower() + &quot; 點傷害。&quot; + opponent);&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
