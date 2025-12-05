@@ -1,7 +1,15 @@
+
+
+
 /**
  * Healable 介面：治療能力
  * 實作此介面的角色可以進行治療動作
  */
+
+
+package com.RPG.interfaces;
+import com.RPG.core.Role;
+
 public interface Healable {
     /**
      * 取得治療力

@@ -40,8 +40,7 @@ public class RPG {
 
         System.out.println("【可防禦角色 (Defendable)】");
         for (Role role : gameRoles) {
-            if (role instanceof Defendable) {
-                Defendable defender = (Defendable) role;
+            if (role instanceof Defendable defender) {
                 System.out.println("✅ " + role.getName() +
                         " - 防禦力：" + defender.getDefenseCapacity() +
                         " (可防禦：" + defender.canDefend() + ")");
@@ -51,8 +50,7 @@ public class RPG {
 
         System.out.println("【可治療角色 (Healable)】");
         for (Role role : gameRoles) {
-            if (role instanceof Healable) {
-                Healable healer = (Healable) role;
+            if (role instanceof Healable healer) {
                 System.out.println("✅ " + role.getName() +
                         " - 治療力：" + healer.getHealPower() +
                         " (可治療：" + healer.canHeal() + ")");
@@ -103,57 +101,59 @@ public class RPG {
             System.out.println();
 
             // 執行動作
-            if (currentRole instanceof Paladin) {
-                // 聖騎士：展示多重能力
-                Paladin p = (Paladin) currentRole;
-                double action = Math.random();
+            switch (currentRole) {
+                case Paladin p -> {
+                    // 聖騎士：展示多重能力
+                    double action = Math.random();
 
-                if (action < 0.3) {
-                    // 30% 防禦
-                    p.defend();
-                } else if (action < 0.6) {
-                    // 30% 治療
-                    Role ally = getRandomAliveRole(gameRoles);
-                    if (ally != null) {
-                        p.heal(ally);
+                    if (action < 0.3) {
+                        // 30% 防禦
+                        p.defend();
+                    } else if (action < 0.6) {
+                        // 30% 治療
+                        Role ally = getRandomAliveRole(gameRoles);
+                        if (ally != null) {
+                            p.heal(ally);
+                        }
+                    } else {
+                        // 40% 攻擊
+                        Role target = getRandomAliveTarget(gameRoles, currentRole);
+                        if (target != null) {
+                            currentRole.attack(target);
+                        }
                     }
-                } else {
-                    // 40% 攻擊
+                }
+                case ShieldSwordsMan shield -> {
+                    // 持盾劍士：可能防禦
+                    if (Math.random() < 0.3) {
+                        shield.defend();
+                        System.out.println();
+                    }
                     Role target = getRandomAliveTarget(gameRoles, currentRole);
                     if (target != null) {
                         currentRole.attack(target);
                     }
                 }
-            } else if (currentRole instanceof ShieldSwordsMan) {
-                // 持盾劍士：可能防禦
-                ShieldSwordsMan shield = (ShieldSwordsMan) currentRole;
-                if (Math.random() < 0.3) {
-                    shield.defend();
-                    System.out.println();
+                case Magician mage -> {
+                    // 魔法師：攻擊或治療
+                    if (Math.random() < 0.6) {
+                        Role target = getRandomAliveTarget(gameRoles, currentRole);
+                        if (target != null) {
+                            currentRole.attack(target);
+                        }
+                    } else {
+                        Role ally = getRandomAliveRole(gameRoles);
+                        if (ally != null) {
+                            mage.heal(ally);
+                        }
+                    }
                 }
-                Role target = getRandomAliveTarget(gameRoles, currentRole);
-                if (target != null) {
-                    currentRole.attack(target);
-                }
-            } else if (currentRole instanceof Magician) {
-                // 魔法師：攻擊或治療
-                Magician mage = (Magician) currentRole;
-                if (Math.random() < 0.6) {
+                default -> {
+                    // 其他角色：直接攻擊
                     Role target = getRandomAliveTarget(gameRoles, currentRole);
                     if (target != null) {
                         currentRole.attack(target);
                     }
-                } else {
-                    Role ally = getRandomAliveRole(gameRoles);
-                    if (ally != null) {
-                        mage.heal(ally);
-                    }
-                }
-            } else {
-                // 其他角色：直接攻擊
-                Role target = getRandomAliveTarget(gameRoles, currentRole);
-                if (target != null) {
-                    currentRole.attack(target);
                 }
             }
 
@@ -227,4 +227,3 @@ public class RPG {
         return aliveRoles[(int) (Math.random() * count)];
     }
 }
-

@@ -1,0 +1,110 @@
+package com.RPG.roles.ranged;
+
+import com.RPG.core.Role;
+import com.RPG.interfaces.Healable;
+
+public class Magician extends RangedRole implements Healable {
+    // 治癒力
+    private int healPower;
+
+    // 建構子：初始化魔法師的名稱、生命值和攻擊力、治癒力、射程、最大能量
+    public Magician(String name, int health, int attackPower, int healPower, int range, int maxEnergy) {
+        super(name, health, attackPower, range, maxEnergy);
+        this.healPower = healPower;
+    }
+
+    // 取得治癒力
+    @Override
+    public int getHealPower() {
+        return healPower;
+    }
+
+    // ⭐ 實現 Healable 介面方法
+    @Override
+    public boolean canHeal() {
+        return getEnergy() >= 25;
+    }
+
+    // 攻擊對手（消耗能量）
+    @Override
+    public void attack(Role opponent) {
+        int cost = 20; // 每次攻擊消耗能量
+        if (!consumeEnergy(cost)) {
+            System.out.println("⚠️ " + this.getName() + " 能量不足，無法施放攻擊！");
+            return;
+        }
+        System.out.println("✨ " + this.getName() + " 施放魔法攻擊 " + opponent.getName() + "！(消耗 " + cost + " 能量)");
+        opponent.takeDamage(this.getAttackPower()); // 使用 takeDamage 方法
+    }
+
+    // 治療隊友（會消耗能量）
+    @Override
+    public void heal(Role ally) {
+        int cost = 25; // 治療消耗能量
+        if (!consumeEnergy(cost)) {
+            System.out.println("⚠️ " + this.getName() + " 能量不足，無法施放治癒！");
+            return;
+        }
+        int oldHealth = ally.getHealth();
+        ally.setHealth(ally.getHealth() + this.healPower);
+        System.out.println("💚 " + this.getName() + " 治療 " + ally.getName() + 
+                         " 回復 " + healPower + " 點生命值。(消耗 " + cost + " 能量)" +
+                         "(" + oldHealth + " → " + ally.getHealth() + ")");
+    }
+
+    // 展示特殊技能
+    @Override
+    public void showSpecialSkill() {
+        System.out.println("╔═════════════════════════════╗");
+        System.out.println("║ " + this.getName() + " 的特殊技能        ║");
+        System.out.println("╠═════════════════════════════╣");
+        System.out.println("║ 技能名稱：元素爆發          ║");
+        System.out.println("║ 技能描述：召喚強大魔法攻擊  ║");
+        System.out.println("║ 技能效果：範圍魔法傷害      ║");
+        System.out.println("║ 額外效果：恢復自身魔力      ║");
+        System.out.println("╚═════════════════════════════╝");
+    }
+
+    // ========== 第二階段新增：實作死亡和戰鬥相關抽象方法 ==========
+
+    /**
+     * 魔法師的死亡效果
+     */
+    @Override
+    public void onDeath() {
+        System.out.println("💀 " + this.getName() + " 的生命之火熄滅了...");
+        System.out.println("✨ " + this.getName() + " 的身體化為無數魔法粒子，消散在空氣中。");
+        System.out.println("🌟 魔法書掉落在地上，微微發光。");
+        System.out.println("---");
+    }
+
+    /**
+     * 魔法師的戰前準備
+     */
+    @Override
+    public void prepareBattle() {
+        System.out.println("📖 " + this.getName() + " 翻開魔法書，開始吟唱古老的咒語...");
+        System.out.println("✨ 魔法能量在周圍凝聚，空氣中閃爍著神秘的光芒。");
+    }
+
+    /**
+     * 魔法師的戰後行為
+     */
+    @Override
+    public void afterBattle() {
+        // 戰後恢復少量能量
+        recoverEnergy(20);
+        System.out.println("🧘 " + this.getName() + " 閉目冥想，恢復消耗的魔力。(+20 能量)");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", 治癒力: " + healPower +
+               ", 射程: " + getRange() + ", 能量: " + getEnergy() + "/" + getMaxEnergy();
+    }
+
+    @Override
+    public String getRangedAttackType() {
+        return "魔法攻擊";
+    }
+}
