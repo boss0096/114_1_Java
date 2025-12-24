@@ -1,0 +1,2 @@
+public enum SpotType { REGULAR, SMALL, HANDICAPPED, ELECTRIC }
+
